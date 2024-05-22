@@ -13,7 +13,6 @@ class LibraryController extends Controller
     public function index()
     {
         $libraries = Library::all();
-        // dd($libraries);
         return view('library.index', ['libraries' => $libraries]);
     }
 
@@ -23,7 +22,6 @@ class LibraryController extends Controller
         $library = Library::find($id);
         return view('library.borrow', [
             'library' => $library,
-            'user' => Auth::user()
         ]);
     }
 
