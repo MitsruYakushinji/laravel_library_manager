@@ -70,12 +70,10 @@ class LibraryController extends Controller
     // 貸出履歴の表示
     public function history()
     {
-        $libraries = Library::all();
         $logs = Log::where('user_id', Auth::user()->id)->get();
         return view('library.borrowHistory', [
             'logs' => $logs,
-            'user' => Auth::user(),
-            'libraries' => $libraries,
+            'user' => Auth::user()
         ]);
     }
 }

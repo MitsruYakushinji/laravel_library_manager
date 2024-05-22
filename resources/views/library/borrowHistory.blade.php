@@ -27,20 +27,16 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($logs as $log)
-                                        @foreach ($libraries as $library)
-                                            @if ($log->user_id === Auth::id() && $log->library_id === $library->id)
-                                                <tr>
-                                                    <td>{{ $library->name }}</td>
-                                                    <td>{{ $log->rent_date }}</td>
-                                                    @if ($log->return_date !== null)
-                                                        <td>{{ $log->return_date }}</td>
-                                                    @else
-                                                        <td>-</td>
-                                                    @endif
-                                                </tr>
-                                            @endif
-                                        @endforeach
-                                    @endforeach
+                                    <tr>
+                                        <td>{{ $log->library->name }}</td>
+                                        <td>{{ $log->rent_date }}</td>
+                                        @if (is_null($log->return_date))
+                                            <td>-</td>
+                                        @else
+                                            <td>{{ $log->return_date }}</td>
+                                        @endif
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
