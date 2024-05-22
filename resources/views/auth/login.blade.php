@@ -47,6 +47,7 @@
             </x-primary-button>
         </div>
     </form>
+    {{-- Register --}}
     @if (Route::has('register'))
         <div class="mt-5">
             <hr>

@@ -21,11 +21,13 @@ Route::get('/', function () {
 });
 
 Route::middleware('auth')->group(function () {
-    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/library/index', [LibraryController::class, 'index']);
+    Route::get('/library/borrow/{id}', [LibraryController::class, 'borrowingForm']);
+    Route::post('/library/borrow', [LibraryController::class, 'borrow']);
 });
 
 require __DIR__.'/auth.php';
