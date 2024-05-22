@@ -14,7 +14,7 @@
                 </a>
             </li>
             <li class="link">
-                <a href="">
+                <a href="{{ url('library/history') }}">
                     <i class="ti-user"></i>
                     <p>Borrow History</p>
                 </a>

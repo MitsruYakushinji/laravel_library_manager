@@ -44,4 +44,38 @@ class LibraryController extends Controller
 
         return redirect('/library/index');
     }
+
+    // 返却処理
+    public function returnBook(Request $request)
+    {
+        $library = Library::find($request->id);
+        $library->user_id = 0;
+        $library->save();
+
+        // library_id と user_id で対象を検索し、rent_dateが最新のレコードを取得する。
+        $log = Log::where('library_id', $library->id)
+            ->where('user_id', Auth::user()->id)
+            ->orderBy('rent_date', 'desc')
+            ->first();
+
+        // return_date に現在の日付を登録する。
+        $log->return_date = Carbon::now();
+
+        // save メソッドを利用して更新する。
+        $log->save();
+
+        return redirect('/library/index');
+    }
+
+    // 貸出履歴の表示
+    public function history()
+    {
+        $libraries = Library::all();
+        $logs = Log::where('user_id', Auth::user()->id)->get();
+        return view('library.borrowHistory', [
+            'logs' => $logs,
+            'user' => Auth::user(),
+            'libraries' => $libraries,
+        ]);
+    }
 }
